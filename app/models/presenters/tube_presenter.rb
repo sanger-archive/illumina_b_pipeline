@@ -55,7 +55,7 @@ module Presenters
     end
 
     def labware_form_details(view)
-      { :url => view.illumina_b_tube_path(self.labware), :as => :tube }
+      { :url => view.tube_path(self.labware), :as => :tube }
     end
 
     class UnknownTubeType < StandardError

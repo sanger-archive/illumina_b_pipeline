@@ -19,9 +19,9 @@ class QcFilesController < ApplicationController
 
   def find_assets
     ['plate','tube','multiplexed_library_tube'].each do |klass|
-      next if params["illumina_b_#{klass}_id"].nil?
-      @asset_path = send(:"illumina_b_#{klass}_path", params["illumina_b_#{klass}_id"])
-      @asset      = api.send(:"#{klass}").find(params["illumina_b_#{klass}_id"])
+      next if params["#{klass}_id"].nil?
+      @asset_path = send(:"#{klass}_path", params["#{klass}_id"])
+      @asset      = api.send(:"#{klass}").find(params["#{klass}_id"])
       return true
     end
     if params['sequencescape_tube_id']

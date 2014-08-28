@@ -135,7 +135,7 @@ module Presenters
     end
 
     def labware_form_details(view)
-      { :url => view.illumina_b_plate_path(self.labware), :as  => :plate }
+      { :url => view.plate_path(self.labware), :as  => :plate }
     end
 
     def transfers

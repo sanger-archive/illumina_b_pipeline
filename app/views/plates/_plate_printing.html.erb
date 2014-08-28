@@ -2,7 +2,7 @@
   <h2>Print plate label</h2>
   <%= individual_barcode_printing_form(
         @presenter.labware.barcode,
-        :redirection_url => illumina_b_plate_path(@presenter.labware),
+        :redirection_url => plate_path(@presenter.labware),
         :text            => "#{@presenter.label_text} #{@presenter.labware.stock_plate.try(:barcode).try(:number)}"
   ) %>
 <% end %>

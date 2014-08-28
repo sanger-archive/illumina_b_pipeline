@@ -2,10 +2,12 @@ IlluminaBPipeline::Application.routes.draw do
   scope 'search', :controller => :search do
     match '/',                            :action => 'new',            :via => :get,  :as => :search
     match '/',                            :action => 'create_or_find', :via => :post, :as => :perform_search
-    match '/ongoing_illumina_b_plates',   :action => :ongoing_plates
-    match '/all_illumina_b_stock_plates', :action => :stock_plates
-    match '/ongoing_illumina_a_plates',   :action => :ongoing_plates_illumina_a
-    match '/all_illumina_a_stock_plates', :action => :stock_plates_illumina_a
+    #match '/ongoing_illumina_b_plates',   :action => :ongoing_plates
+    match '/ongoing_plates',   :action => :ongoing_plates
+    #match '/all_illumina_b_stock_plates', :action => :stock_plates
+    match '/all_stock_plates', :action => :stock_plates
+    #match '/ongoing_illumina_a_plates',   :action => :ongoing_plates_illumina_a
+    #match '/all_illumina_a_stock_plates', :action => :stock_plates_illumina_a
     match '/tag_plates',                  :action => :tag_plates, :via => :post, :as => :tag_plates_search
     match '/retrieve_parent',             :action => :retrieve_parent
   end
@@ -17,9 +19,9 @@ IlluminaBPipeline::Application.routes.draw do
     match '/:location/verify', :on => :member, :action => 'verify'
   end
 
-  resources :illumina_b_qcables, :controller => :tag_plates, :only=>[:show]
+  resources :qcables, :controller => :tag_plates, :only=>[:show]
 
-  resources :illumina_b_plates, :controller => :plates do
+  resources :plates, :controller => :plates do
     resources :children, :controller => :plate_creation
     resources :tubes,    :controller => :tube_creation
     resources :qc_files, :controller => :qc_files
@@ -27,15 +29,15 @@ IlluminaBPipeline::Application.routes.draw do
   post '/fail_wells/:id', :controller => :plates, :action => 'fail_wells', :as => :fail_wells
 
   namespace "admin" do
-    resources :illumina_b_plates, :only => [:update, :edit], :as => :plates
+    resources :plates, :only => [:update, :edit], :as => :plates
   end
 
-  resources :illumina_b_multiplexed_library_tube, :controller => :tubes do
+  resources :multiplexed_library_tube, :controller => :tubes do
     resources :qc_files, :controller => :qc_files
   end
 
   # This is a hack untill I get tube coercion working
-  resources :illumina_b_tube, :controller => :tubes do
+  resources :tube, :controller => :tubes do
     resources :qc_files, :controller => :qc_files
   end
 
