@@ -5,7 +5,7 @@ class TubeCreationController < CreationController
   end
 
   def redirection_path(form)
-    illumina_b_tube_path(form.child.uuid)
+    tube_path(form.child.uuid)
   end
 
 

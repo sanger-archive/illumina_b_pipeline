@@ -52,7 +52,7 @@
 
             <%= individual_barcode_printing_form(
               @presenter.labware.barcode,
-              :redirection_url => illumina_b_tube_path(@presenter.labware),
+              :redirection_url => tube_path(@presenter.labware),
               :text            => @presenter.label_text
             ) %>
           </div>
@@ -69,7 +69,7 @@
             <% end %>
             <%= @presenter.control_child_links do %>
               <h2>Link to created tubes</h2>
-              <a href="<%= illumina_b_tube_path(@presenter.labware.requests.first.target_asset.uuid)%>">Multiplexed Library Tube</a>
+              <a href="<%= tube_path(@presenter.labware.requests.first.target_asset.uuid)%>">Multiplexed Library Tube</a>
             <% end %>
           </div>
 

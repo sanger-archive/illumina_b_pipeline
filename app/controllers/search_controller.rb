@@ -12,7 +12,6 @@ class SearchController < ApplicationController
 
   def ongoing_plates(search='Find Illumina-B plates')
     plate_search = api.search.find(Settings.searches[search])
-
     @search_results = plate_search.all(
       IlluminaB::Plate,
       :state => [ 'pending', 'started', 'passed', 'started_fx', 'started_mj', 'qc_complete' ]
@@ -57,7 +56,7 @@ class SearchController < ApplicationController
     raise InputError, "#{params[:tag_plate_barcode]} is not a valid barcode" unless /^[0-9]{13}$/===params[:tag_plate_barcode]
     respond_to do |format|
       format.json {
-          redirect_to find_qcable(params[:tag_plate_barcode])
+          redirect_to qcable_path(find_qcable(params[:tag_plate_barcode]))
       }
     end
   rescue Sequencescape::Api::ResourceNotFound, InputError => exception
@@ -81,7 +80,7 @@ class SearchController < ApplicationController
     raise "You have not supplied a labware barcode" if params[:plate_barcode].blank?
 
     respond_to do |format|
-      format.html { redirect_to find_plate(params[:plate_barcode]) }
+      format.html { redirect_to plate_path(find_plate(params[:plate_barcode])) }
     end
   end
 
