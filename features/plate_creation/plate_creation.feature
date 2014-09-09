@@ -12,8 +12,8 @@ Feature: Plate creation
   Scenario: Finding a plate page by page
     Given I am on the homepage
     When I enter a valid user barcode
-      And I press "Find User"
-    Then I am on the plate search page
+      And I press "Show My Plates"
+    Then I am on the search page
   
   
   
