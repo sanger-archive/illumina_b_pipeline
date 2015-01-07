@@ -21,7 +21,15 @@ namespace :config do
     'Lib PCR',
     'Lib PCRR',
     'Lib PCR-XP',
-    'Lib PCRR-XP'
+    'Lib PCRR-XP',
+
+    ## Pulldown
+    'ISCH lib pool',
+    'ISCH hyb',
+    'ISCH cap lib',
+    'ISCH cap lib PCR',
+    'ISCH cap lib PCR-XP',
+    'ISCH cap lib pool'
   ]
 
   QC_PLATE_PURPOSES = [
@@ -302,7 +310,6 @@ namespace :config do
           presenters['ISCH cap lib PCR'].merge!(:presenter_class => 'Presenters::StandardRobotPresenter', :robot=>'bravo-post-cap-pcr-setup', :default_printer_type => :plate_b)
           presenters['ISCH cap lib PCR-XP'].merge!(:presenter_class => 'Presenters::StandardRobotPresenter', :robot=>'bravo-post-cap-pcr-cleanup', :default_printer_type => :plate_b)
           presenters["ISCH cap lib pool"].merge!( :form_class => "Forms::AutoPoolingForm",   :presenter_class => "Presenters::FinalPooledRobotPresenter",  :state_changer_class => 'StateChangers::AutoPoolingStateChanger', :default_printer_type => :plate_b)
-
         end
 
         purpose_details_by_uuid = lambda { |labware_purposes, purpose|
