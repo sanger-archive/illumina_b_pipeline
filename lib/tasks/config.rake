@@ -21,7 +21,15 @@ namespace :config do
     'Lib PCR',
     'Lib PCRR',
     'Lib PCR-XP',
-    'Lib PCRR-XP'
+    'Lib PCRR-XP',
+
+    ## Pulldown
+    'ISCH lib pool',
+    'ISCH hyb',
+    'ISCH cap lib',
+    'ISCH cap lib PCR',
+    'ISCH cap lib PCR-XP',
+    'ISCH cap lib pool'
   ]
 
   QC_PLATE_PURPOSES = [
@@ -59,7 +67,7 @@ namespace :config do
 
     # Build the configuration file based on the server we are connected to.
     CONFIG = {}.tap do |configuration|
-
+      ### REVIEW:  Is parameter this compatible??
       configuration[:'large_insert_limit'] = 250
 
       configuration[:searches] = {}.tap do |searches|
@@ -293,6 +301,15 @@ namespace :config do
             :from_purpose         => 'Lib Pool Pippin'
           )
 
+          ### REVIEW: From Pulldown app
+          # ISCH plates
+          presenters["Lib PCR-XP"].merge!( :presenter_class => "Presenters::LibPcrXpPresenter", :selected_child_purpose => "ISCH lib pool")
+          presenters["ISCH lib pool"].merge!(:form_class => "Forms::MultiPlatePoolingForm", :presenter_class => "Presenters::MultiPlatePooledPresenter", :default_printer_type => :plate_b)
+          presenters["ISCH hyb"].merge!(           :form_class => "Forms::BaitingForm",       :presenter_class => 'Presenters::StandardRobotPresenter', :robot=>'nx8-pre-hyb-pool', :default_printer_type => :plate_b)
+          presenters['ISCH cap lib'].merge!( :presenter_class => 'Presenters::StandardRobotPresenter', :robot=>'bravo-cap-wash', :default_printer_type => :plate_b)
+          presenters['ISCH cap lib PCR'].merge!(:presenter_class => 'Presenters::StandardRobotPresenter', :robot=>'bravo-post-cap-pcr-setup', :default_printer_type => :plate_b)
+          presenters['ISCH cap lib PCR-XP'].merge!(:presenter_class => 'Presenters::StandardRobotPresenter', :robot=>'bravo-post-cap-pcr-cleanup', :default_printer_type => :plate_b)
+          presenters["ISCH cap lib pool"].merge!( :form_class => "Forms::AutoPoolingForm",   :presenter_class => "Presenters::FinalPooledRobotPresenter",  :state_changer_class => 'StateChangers::AutoPoolingStateChanger', :default_printer_type => :plate_b)
         end
 
         purpose_details_by_uuid = lambda { |labware_purposes, purpose|
@@ -311,7 +328,7 @@ namespace :config do
       end
 
 
-
+      ### REVIEW: Is this compatible??
       configuration[:purpose_uuids] = {}.tap do |purpose_uuids|
 
         store_purpose_uuids = lambda { |purpose_uuids, purpose|
