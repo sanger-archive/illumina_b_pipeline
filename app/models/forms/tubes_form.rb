@@ -71,7 +71,6 @@ module Forms
     validate :all_parents_and_only_parents?, :if => :barcodes_provided?
 
     def create_objects!
-      debugger
       success = []
       @all_tube_transfers = parents.map do |this_parent_uuid|
         transfer_template.create!(
@@ -80,7 +79,7 @@ module Forms
         ).tap { success << this_parent_uuid }
       end
       true
-    rescue => e
+    rescue => exception
       errors.add(:base,"#{success.count} tubes were transferred successfully before something went wrong." )
       errors.add(:base,exception.message)
       false
