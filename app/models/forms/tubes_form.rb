@@ -79,7 +79,7 @@ module Forms
         ).tap { success << this_parent_uuid }
       end
       true
-    rescue => e
+    rescue => exception
       errors.add(:base,"#{success.count} tubes were transferred successfully before something went wrong." )
       errors.add(:base,e.message)
       false
