@@ -132,6 +132,8 @@ ROBOT_CONFIG = {
       :layout => 'bed',
       :beds => {
         BED[1] => {:order=>1, :purpose => 'Lib PCR-XP',    :states => ['passed'],  :label => 'Bed 1'},
+        # New bed
+        BED[10] => {           :purpose => 'Quant STD',     :states => ['pending'], :label => 'Bed 2' },
         BED[9] => {:order=>2, :purpose => 'Lib PCR-XP QC', :states => ['pending'], :label => 'Bed 9', :parent =>BED[1], :target_state => 'started'}
       }
     },
